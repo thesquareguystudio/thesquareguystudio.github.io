@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Square Guy | Indie Game Studio</title>
+    <meta name="description" content="Official site for The Square Guy Studio and The Second Before.">
+    
+    <!-- Fonts: Orbitron for Sci-Fi/Time feel, Inter for clean reading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* --- CORE THEME --- */
+        :root {
+            --bg-deep: #050507;
+            --bg-panel: #0e0e12;
+            --gold-accent: #c4a96e; /* Silksong-ish gold */
+            --silver-accent: #a0a5b0;
+            --text-main: #f0f0f5;
+            --text-muted: #8a8d99;
+            --hero-overlay: linear-gradient(to bottom, rgba(5,5,7,0.3), var(--bg-deep));
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Updated to Orbitron for a tech/time-travel vibe */
+        h1, h2, h3, .brand-font {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        a { text-decoration: none; color: inherit; transition: 0.3s; cursor: pointer; }
+        ul { list-style: none; }
+
+        /* --- FADE ANIMATIONS --- */
+        .fade-in { animation: fadeIn 1s ease-out forwards; opacity: 0; }
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- NAVIGATION --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
+            transition: background 0.3s;
+        }
+
+        .navbar.scrolled {
+            background: rgba(5, 5, 7, 0.95);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .nav-brand {
+            font-size: 1.2rem;
+            color: var(--gold-accent);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--text-main);
+            text-shadow: 0 0 10px rgba(255,255,255,0.3);
+        }
+
+        /* --- PAGE CONTAINERS --- */
+        .page-view {
+            display: none; /* Hidden by default */
+            min-height: 100vh;
+        }
+        
+        .page-view.active {
+            display: block;
+            animation: fadeInPage 0.5s ease-out;
+        }
+
+        @keyframes fadeInPage {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* ================= STUDIO HOME ================= */
+        .studio-hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle at top, #1a1c29 0%, var(--bg-deep) 70%);
+            text-align: center;
+            padding: 0 1rem;
+        }
+
+        .studio-logo-large {
+            width: 150px;
+            height: 150px;
+            background: #1a1c29;
+            border: 2px solid var(--gold-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+            font-size: 3rem;
+            color: var(--gold-accent);
+            box-shadow: 0 0 50px rgba(196, 169, 110, 0.1);
+        }
+
+        .studio-hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to bottom, #fff, #999);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .studio-hero p {
+            max-width: 600px;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 3rem;
+        }
+
+        .game-card-container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .game-preview-card {
+            background: var(--bg-panel);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 4px;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            transition: transform 0.3s, border-color 0.3s;
+            cursor: pointer;
+        }
+
+        .game-preview-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold-accent);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+
+        .card-image {
+            background-color: #222;
+            background-image: url('The Second Before Thumbnail.jpg'); /* Using your uploaded thumbnail */
+            background-size: cover;
+            background-position: center;
+            min-height: 300px;
+            position: relative;
+        }
+
+        .card-content {
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .card-content h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+
+        .card-content p {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+
+        .btn-outline {
+            border: 1px solid var(--gold-accent);
+            color: var(--gold-accent);
+            padding: 0.8rem 2rem;
+            text-align: center;
+            text-transform: uppercase;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            transition: 0.3s;
+            background: transparent;
+        }
+
+        .btn-outline:hover {
+            background: var(--gold-accent);
+            color: var(--bg-deep);
+        }
+
+
+        /* ================= GAME PAGE (The Second Before) ================= */
+        .game-hero {
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background-color: #050507;
+            overflow: hidden;
+        }
+
+        /* Background Video Styles */
+        .hero-bg-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures video covers entire area */
+            z-index: 0;
+            opacity: 0.5; /* Dim video to make text readable */
+        }
+
+        .game-hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--hero-overlay); /* Gradient overlay */
+            z-index: 1; /* Sits on top of video, below text */
+        }
+
+        .game-hero-content {
+            position: relative;
+            z-index: 2; /* Sits on top of everything */
+            padding: 2rem;
+            max-width: 900px;
+        }
+
+        .game-logo-text {
+            font-size: 5rem;
+            line-height: 1;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 30px rgba(0,0,0,0.8);
+            color: #fff; 
+        }
+
+        .game-hero p {
+            font-size: 1.3rem;
+            color: #ccc;
+            margin-bottom: 2.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .btn-solid {
+            background: var(--text-main);
+            color: var(--bg-deep);
+            padding: 1rem 2.5rem;
+            text-transform: uppercase;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            letter-spacing: 1px;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-solid:hover {
+            background: var(--gold-accent);
+            transform: scale(1.05);
+        }
+
+        /* --- CONTENT SECTIONS --- */
+        .content-section {
+            padding: 6rem 5%;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--gold-accent);
+            margin-bottom: 1rem;
+        }
+
+        .divider {
+            height: 1px;
+            width: 100px;
+            background: var(--gold-accent);
+            margin: 0 auto;
+        }
+
+        /* --- FEATURES --- */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-item {
+            text-align: center;
+        }
+
+        .feature-icon {
+            color: var(--silver-accent);
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+        }
+
+        .feature-item h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+
+        .feature-item p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* --- MEDIA --- */
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .media-item {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            background: #222;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: 0.3s;
+        }
+
+        .media-item:hover {
+            border-color: var(--gold-accent);
+            transform: scale(1.02);
+            z-index: 10;
+        }
+
+        .media-item img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(30%);
+            transition: 0.5s;
+        }
+
+        .media-item:hover img { filter: grayscale(0%); }
+
+        .media-large { grid-column: span 2; }
+
+        /* --- FOOTER --- */
+        footer {
+            background: #000;
+            padding: 4rem 5%;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .footer-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links i {
+            color: var(--text-muted);
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .social-links i:hover { color: var(--gold-accent); }
+
+        .copyright {
+            color: #444;
+            font-size: 0.8rem;
+        }
+
+        /* --- MOBILE --- */
+        @media (max-width: 768px) {
+            .studio-hero h1, .game-logo-text { font-size: 2.5rem; }
+            .game-preview-card { grid-template-columns: 1fr; }
+            .media-grid { grid-template-columns: 1fr; }
+            .media-large { grid-column: auto; }
+            .navbar { padding: 1rem; }
+            .nav-links { gap: 1rem; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-brand brand-font">
+            <i data-lucide="box" size="24"></i> <!-- Logo Icon -->
+            THE SQUARE GUY
+        </div>
+        <div class="nav-links">
+            <a onclick="showView('studio')" id="nav-studio">Studio</a>
+            <a onclick="showView('game')" id="nav-game">Games</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <!-- ===================== VIEW 1: STUDIO HOME ===================== -->
+    <div id="view-studio" class="page-view active">
+        
+        <!-- Studio Hero -->
+        <section class="studio-hero">
+            <div class="studio-logo-large fade-in">
+                <i data-lucide="box" size="64"></i>
+            </div>
+            <h1 class="fade-in delay-1">The Square Guy</h1>
+            <p class="fade-in delay-2">An independent game studio crafting atmospheric puzzles<br>and time-bending narratives.</p>
+        </section>
+
+        <!-- Featured Game Section -->
+        <section class="content-section" style="background: var(--bg-deep);">
+            <div class="section-header">
+                <h2>Our Latest Release</h2>
+                <div class="divider"></div>
+            </div>
+
+            <div class="game-card-container fade-in delay-3">
+                <div class="game-preview-card" onclick="showView('game')">
+                    <!-- Updated with uploaded thumbnail -->
+                    <div class="card-image"></div> 
+                    <div class="card-content">
+                        <h2>The Second Before</h2>
+                        <p>One mistake is all it takes. Master time manipulation, cooperate with your past self, and solve impossible puzzles in a clockwork world.</p>
+                        <button class="btn-outline">Visit Official Page</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- ===================== VIEW 2: GAME PAGE ===================== -->
+    <div id="view-game" class="page-view">
+        
+        <!-- Game Hero (Immersive) -->
+        <section class="game-hero">
+            <!-- Background Video: Make sure 'Movie_002.mp4' is in the same folder -->
+            <video autoplay muted loop playsinline class="hero-bg-video" poster="The Second Before Thumbnail.jpg">
+                <source src="Movie_002.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+
+            <div class="game-hero-content">
+                <h1 class="game-logo-text fade-in">THE SECOND BEFORE</h1>
+                <p class="fade-in delay-1">"Time is not your enemy. It is your only weapon."</p>
+                
+                <div class="fade-in delay-2">
+                    <a href="https://store.steampowered.com" target="_blank" class="btn-solid">
+                        <i data-lucide="gamepad-2"></i> Wishlist on Steam
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="content-section" style="background: #09090c;">
+            <div class="section-header">
+                <h2>Rewind The Past</h2>
+                <div class="divider"></div>
+                <p style="max-width: 600px; margin: 2rem auto; color: var(--text-muted); line-height: 1.8;">
+                    In The Second Before, you play as a small hero with a big destiny. Trapped in a world governed by giant gears, 
+                    you must manipulate the timeline to survive. When you die, you don't just restart—you work together with your past echo 
+                    to overcome the obstacle that killed you.
+                </p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-item">
+                    <i data-lucide="hourglass" class="feature-icon" size="40"></i>
+                    <h3>Time Control</h3>
+                    <p>Rewind time instantly to correct mistakes or set up complex synchronization puzzles.</p>
+                </div>
+                <div class="feature-item">
+                    <i data-lucide="users" class="feature-icon" size="40"></i>
+                    <h3>Self-Cooperation</h3>
+                    <p>Create time clones of yourself. Have your past self hold the door while you walk through it.</p>
+                </div>
+                <div class="feature-item">
+                    <i data-lucide="layers" class="feature-icon" size="40"></i>
+                    <h3>4K Atmosphere</h3>
+                    <p>Immerse yourself in a handcrafted 2.5D world with dynamic lighting and moody visuals.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Media Gallery -->
+        <section class="content-section">
+            <div class="section-header">
+                <h2>Gallery</h2>
+                <div class="divider"></div>
+            </div>
+            
+            <div class="media-grid">
+                <!-- Replace src with your actual screenshots -->
+                <div class="media-item media-large">
+                    <img src="https://placehold.co/1200x675/1a1a2e/FFF?text=Main+Gameplay+Action" alt="Screenshot 1">
+                </div>
+                <div class="media-item">
+                    <img src="https://placehold.co/600x337/1a1a2e/FFF?text=Puzzle+Solving" alt="Screenshot 2">
+                </div>
+                <div class="media-item">
+                    <img src="https://placehold.co/600x337/1a1a2e/FFF?text=Atmospheric+World" alt="Screenshot 3">
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer id="contact">
+        <div class="footer-logo">THE SQUARE GUY</div>
+        <div class="social-links">
+            <i data-lucide="twitter"></i>
+            <i data-lucide="youtube"></i>
+            <i data-lucide="instagram"></i>
+            <i data-lucide="mail"></i>
+        </div>
+        <div class="copyright">
+            &copy; 2025 The Square Guy Studio. All rights reserved.<br>
+            The Second Before is a trademark of The Square Guy.
+        </div>
+    </footer>
+
+    <!-- LOGIC -->
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Simple View Switcher (SPA Feel)
+        function showView(viewName) {
+            // Hide all views
+            document.querySelectorAll('.page-view').forEach(view => {
+                view.classList.remove('active');
+            });
+            
+            // Show selected view
+            document.getElementById(`view-${viewName}`).classList.add('active');
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+
+            // Update Nav Active State
+            document.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active'));
+            document.getElementById(`nav-${viewName}`).classList.add('active');
+        }
+
+        // Set default active nav
+        document.getElementById('nav-studio').classList.add('active');
+    </script>
+</body>
+</html>
