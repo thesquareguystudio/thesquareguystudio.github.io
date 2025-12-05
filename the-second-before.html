@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Second Before | The Square Guy</title>
+    <meta name="description" content="The Second Before - A time manipulation puzzle game.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <!-- Clicking brand returns to Home -->
+        <a href="index.html" class="nav-brand brand-font">
+            
+            <img src="src/TheSquareGuy-Logo.webp" alt="Studio Logo" style="width: 4%; height: 4%; object-fit: cover;">
+            <!--<i data-lucide="box" size="24"></i>--> 
+                       THE SQUARE GUY
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Studio</a>
+            <a href="index.html#Games">Games</a>
+            <a href="index.html#contact">Contact</a>
+        </div>
+    </nav>
+
+    <!-- GAME CONTENT -->
+    <div class="page-view active">
+        
+        <!-- Game Hero -->
+        <section class="game-hero">
+            <!-- Ensure 'Video.mp4' is in the same folder -->
+            <video autoplay muted loop playsinline class="hero-bg-video" poster="src/TSB-1.webp">
+                <source src="Video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+
+            <div class="game-hero-content">
+                <h1 class="game-logo-text fade-in">THE SECOND BEFORE</h1>
+                <p class="fade-in delay-1">"Time is not your enemy. It is your only weapon."</p>
+                
+                <!-- Updated Buttons Container -->
+                <div class="store-btn-group fade-in delay-2">
+                    <!-- STEAM BUTTON -->
+                    <a href="https://store.steampowered.com" target="_blank" class="btn-solid">
+                        <i data-lucide="gamepad-2"></i> Wishlist on Steam
+                    </a>
+                    
+                    <!-- GOOGLE PLAY BUTTON (Same Style) -->
+                    <a href="https://play.google.com" target="_blank" class="btn-solid">
+                        <i data-lucide="play-circle"></i> Add on Google Play
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="content-section" style="background: #09090c;">
+            <div class="section-header">
+                <h2>Rewind The Past</h2>
+                <div class="divider"></div>
+                <p style="max-width: 600px; margin: 2rem auto; color: var(--text-muted); line-height: 1.8;">
+                    In The Second Before, you play as a small hero with a big destiny. Trapped in a world governed by giant gears, 
+                    you must manipulate the timeline to survive. When you die, you don't just restart—you work together with your past echo 
+                    to overcome the obstacle that killed you.
+                </p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-item">
+                    <i data-lucide="hourglass" class="feature-icon" size="40"></i>
+                    <h3>Time Control</h3>
+                    <p>Rewind time instantly to correct mistakes or set up complex synchronization puzzles.</p>
+                </div>
+                <div class="feature-item">
+                    <i data-lucide="users" class="feature-icon" size="40"></i>
+                    <h3>Self-Cooperation</h3>
+                    <p>Create time clones of yourself. Have your past self hold the door while you walk through it.</p>
+                </div>
+                <div class="feature-item">
+                    <i data-lucide="layers" class="feature-icon" size="40"></i>
+                    <h3>4K Atmosphere</h3>
+                    <p>Immerse yourself in a handcrafted 2.5D world with dynamic lighting and moody visuals.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Media Gallery -->
+        <section class="content-section">
+            <div class="section-header">
+                <h2>Gallery</h2>
+                <div class="divider"></div>
+            </div>
+            
+            <div class="media-grid">
+                <div class="media-item media-large">
+                    <img src="https://placehold.co/1200x675/1a1a2e/FFF?text=Main+Gameplay+Action" alt="Screenshot 1">
+                </div>
+                <div class="media-item">
+                    <img src="https://placehold.co/600x337/1a1a2e/FFF?text=Puzzle+Solving" alt="Screenshot 2">
+                </div>
+                <div class="media-item">
+                    <img src="https://placehold.co/600x337/1a1a2e/FFF?text=Atmospheric+World" alt="Screenshot 3">
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer id="contact">
+        <div class="footer-logo">THE SQUARE GUY</div>
+        <div class="social-links">
+            <i data-lucide="twitter"></i>
+            <i data-lucide="youtube"></i>
+            <i data-lucide="instagram"></i>
+            <i data-lucide="mail"></i>
+        </div>
+        <div class="copyright">
+            &copy; 2025 The Square Guy Studio. All rights reserved.<br>
+            The Second Before is a trademark of The Square Guy.
+        </div>
+    </footer>
+
+    <!-- LOGIC -->
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
